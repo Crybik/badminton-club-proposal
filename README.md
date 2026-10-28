@@ -37,6 +37,8 @@ Tests use installed Google Chrome through Playwright. They cover English/Arabic 
 
 ## Deploy
 
-`railway.json` uses Railpack, runs `npm run build`, starts `npm start`, and checks `/health`. Connect the public repository's `main` branch to Railway and generate a service domain. `/health` returns the active Git commit when Railway provides `RAILWAY_GIT_COMMIT_SHA`; `/release.json` records build metadata.
+The Railway service is connected to this repository's `main` branch. Its service settings use Railpack, run `npm run build`, start `npm start`, and check `/health` with a 120-second timeout. The service has three failure-restart attempts. These settings are configured on Railway, not through the deprecated `railway.json` format. See [DEPLOYMENT.md](DEPLOYMENT.md) to reproduce them.
+
+`/health` returns the active Git commit when Railway provides `RAILWAY_GIT_COMMIT_SHA`; `/release.json` records build metadata. A release is verified only when Railway reports success at the pushed SHA and the public health endpoint returns that same SHA.
 
 No credentials or local review/consultation materials are included in this repository.
